@@ -1,0 +1,391 @@
+/* Añadido: Variables de color para facilitar el cambio de paleta */
+:root {
+    --color-primario: #0a2a4a;  /* Azul más profundo y elegante */
+    --color-secundario: #f5f0e1; /* Beige suave para contraste */
+    --color-acentuado: #b8860b;  /* Dorado para toques de lujo */
+    --color-texto: #333;
+    --fuente-principal: 'Poppins', sans-serif;
+    --fuente-titulos: 'Playfair Display', serif;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-secundario);
+    color: var(--color-texto);
+    line-height: 1.6; /* Mejora la legibilidad */
+    margin: 0; /* Reset de margen */
+    overflow-x: hidden; /* Evita el scroll horizontal inesperado */
+}
+
+/* Encabezado */
+header {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 20px 0;  /* CORRECCIÓN: Reduje el padding vertical */
+    text-align: center;
+    position: relative; /* Para el efecto de onda */
+    overflow: hidden; /* Oculta la onda fuera del header */
+}
+
+header h1 {
+    font-family: var(--fuente-titulos);
+    font-size: 3.5rem; /* Más grande para impacto */
+    font-weight: 600;
+    letter-spacing: 2px; /* Más espaciado */
+    margin-bottom: 10px; /* Espacio antes del nav */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sutil sombra */
+}
+
+header nav {
+    margin-top: 25px;
+}
+
+header nav a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    margin: 0 25px; /* Más espacio horizontal */
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative; /* Para la línea inferior */
+    transition: color 0.3s ease;
+}
+
+header nav a:before {  /* Línea inferior al hacer hover */
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-acentuado);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+header nav a:hover {
+    color: var(--color-acentuado);
+}
+
+header nav a:hover:before {
+    width: 100%;
+}
+
+/* Efecto de onda para el header */
+header:before {
+    content: '';
+    position: absolute;
+    bottom: -20px; /* CORRECCIÓN: Mueve la onda hacia abajo */
+    left: 0;
+    width: 100%;
+    height: 100px;  /* CORRECCIÓN: Reduce la altura de la onda */
+    background: var(--color-acentuado);
+    border-radius: 50% / 10%;
+    transform: scaleX(1.1);
+    transform-origin: bottom;
+    animation: onda 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+@keyframes onda {
+    0% { transform: scaleX(1.1) translateY(0); }
+    50% { transform: scaleX(1.1) translateY(-15px); }
+    100% { transform: scaleX(1.1) translateY(0); }
+}
+
+/* Estilos para el main (AÑADIDO) */
+main {
+    padding: 20px;
+    min-height: 60vh; /* Asegura que el footer no suba demasiado */
+}
+
+
+/* Sección de perfumes */
+#perfumes {
+    padding: 80px 20px; /* Más espacio vertical */
+    max-width: 1200px;
+    margin: auto;
+}
+
+#perfumes h2 {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--color-primario);
+    font-family: var(--fuente-titulos);
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+#perfumes h2:before { /* Línea decorativa debajo del título */
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-acentuado);
+    border-radius: 2px;
+}
+
+.perfumes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Tarjetas más anchas */
+    gap: 40px; /* Más espacio entre tarjetas */
+    animation: fade-in 1s ease-in-out forwards; /* Animación de entrada */
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tarjeta de perfume */
+.perfume {
+    background: rgba(255, 255, 255, 0.85); /* Blanco translúcido */
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Para el "Nuevo" badge */
+    overflow: hidden; /* Oculta el badge fuera de la tarjeta */
+}
+
+.perfume:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+.perfume img {
+    width: 100%;
+    height: 280px; /* Imágenes más altas */
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    transition: transform 0.4s ease-in-out; /* Zoom sutil */
+}
+
+.perfume:hover img {
+    transform: scale(1.05);
+}
+
+.perfume h3 {
+    font-size: 1.8rem;
+    font-family: var(--fuente-titulos);
+    color: var(--color-primario);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.perfume:hover h3 {
+    color: var(--color-acentuado);
+}
+
+.perfume p {
+    font-size: 1rem;
+    color: #555; /* Gris más suave */
+    margin-bottom: 15px;
+}
+
+.perfume span {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-primario);
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Botón */
+.perfume button {
+    background: linear-gradient(to right, var(--color-acentuado), #d4af37); /* Gradiente dorado */
+    border: none;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    color: var(--color-secundario);
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.perfume button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.perfume button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge "Nuevo" */
+.perfume .nuevo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-acentuado);
+    color: var(--color-secundario);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1; /* Asegura que esté encima de la imagen */
+    animation: aparecer-badge 0.5s ease-out forwards;
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+@keyframes aparecer-badge {
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 80px;
+    position: relative; /* Para el efecto de onda */
+    overflow: hidden; /* Oculta la onda fuera del footer */
+}
+
+footer p {
+    margin: 0;
+    opacity: 0.8; /* Más sutil */
+}
+
+/* Efecto de onda para el footer (similar al header) */
+footer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: var(--color-acentuado);
+    border-radius: 50% / 10%;
+    transform: scaleX(1.1);
+    transform-origin: top;
+    animation: onda-footer 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+@keyframes onda-footer {
+    0% { transform: scaleX(1.1) translateY(0); }
+    50% { transform: scaleX(1.1) translateY(15px); }
+    100% { transform: scaleX(1.1) translateY(0); }
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    header { padding: 30px 10px; }
+    header h1 { font-size: 2.5rem; }
+    header nav a { margin: 0 15px; font-size: 1rem; }
+    #perfumes { padding: 60px 10px; }
+    #perfumes h2 { font-size: 2.2rem; }
+    .perfumes-container { grid-template-columns: 1fr; } /* Apila en pantallas pequeñas */
+    .perfume { padding: 20px; }
+    .perfume img { height: 200px; }
+}
+
+/* Estilos para la página del carrito */
+#carrito h2 {
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    font-family: var(--fuente-titulos);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+#productos-carrito {
+    /* Estilos para el contenedor de los productos en el carrito */
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#productos-carrito .producto-carrito {
+    /* Estilos para cada producto individual en el carrito */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+#total-carrito {
+    /* Estilos para el total y el botón de finalizar compra */
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#proceder-pago {
+    /* Estilos para el botón de finalizar compra */
+    background-color: var(--color-acentuado);
+    color: var(--color-secundario);
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease;
+}
+
+#proceder-pago:hover {
+    background-color: #d4af37; /* Un tono más oscuro del dorado */
+}
+
+/* Estilos para la página de contacto */
+#formulario-contacto h2 {
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    font-family: var(--fuente-titulos);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#formulario-contacto p {
+    /* Estilos para la descripción del formulario */
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#contacto-form label {
+    /* Estilos para las etiquetas del formulario */
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#contacto-form input[type="text"],
+#contacto-form input[type="email"],
+#contacto-form textarea {
+    /* Estilos para los campos de entrada y el textarea */
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+}
+
+#contacto-form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+#contacto-form button[type="submit"] {
+    /* Estilos para el botón de enviar */
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease;
+}
+
+#contacto-form button[type="submit"]:hover {
+    background-color: #082038; /* Un tono más oscuro del azul */
+}
