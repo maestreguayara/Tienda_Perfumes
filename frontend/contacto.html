@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto | Allure Perfumes</title>  <link rel="stylesheet" href="css/estilos.css">
+    <title>Contacto | Allure Perfumes</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <header>
-        <h1>Contacto Exclusivo</h1>  <nav>
+        <h1>Contacto Exclusivo</h1>
+        <nav>
             <a href="index.html">Inicio</a>
             <a href="carrito.html">Carrito</a>
             <a href="contacto.html">Contacto</a>
@@ -15,12 +17,38 @@
     </header>
 
     <main>
-        <section id="formulario-contacto">  <h2>¿Hablamos de Perfumes?</h2>  <p>Déjanos tu mensaje y un experto perfumista te contactará.</p>  <form id="contacto-form">
-                <label for="nombre">Nombre Completo:</label><br>  <input type="text" id="nombre" name="nombre" required><br><br>
+        <section id="formulario-contacto">
+            <h2>¿Hablamos de Perfumes?</h2>
+            <p>Déjanos tu mensaje y un experto perfumista te contactará.</p>
+            <form id="contacto-form">
+                <label for="nombre">Nombre Completo:</label><br>
+                <input type="text" id="nombre" name="nombre" required><br><br>
 
                 <label for="email">Correo Electrónico:</label><br>
                 <input type="email" id="email" name="email" required><br><br>
 
-                <label for="mensaje">Tu Consulta:</label><br>  <textarea id="mensaje" name="mensaje" rows="5" required></textarea><br><br>
+                <label for="mensaje">Tu Consulta:</label><br>
+                <textarea id="mensaje" name="mensaje" rows="5" required></textarea><br><br>
 
-                <button type="submit">Enviar Mensaje</button>  </form>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+            <p id="respuesta-contacto" style="margin-top: 10px; color: green;"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Allure Perfumes - Pasión por las Fragancias</p>
+    </footer>
+
+    <script>
+        document.getElementById('contacto-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const respuesta = document.getElementById('respuesta-contacto');
+            respuesta.textContent = '¡Gracias por tu mensaje! Te contactaremos pronto.';
+            // Puedes agregar aquí la lógica para enviar el formulario a un servidor si lo necesitas
+            document.getElementById('contacto-form').reset();
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

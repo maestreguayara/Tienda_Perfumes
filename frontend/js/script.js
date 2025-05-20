@@ -20,9 +20,15 @@ const mostrarPerfumes = (perfumes) => {
 
     contenedor.innerHTML = '';
 
-    perfumes.forEach((perfume) => {
+    perfumes.forEach((perfume, index) => { // Añadido 'index' para retardos AOS
         const div = document.createElement('div');
         div.classList.add('perfume');
+        // Añadir atributos AOS dinámicamente
+        div.setAttribute('data-aos', 'fade-up'); // Tipo de animación
+        div.setAttribute('data-aos-delay', `${100 * index}`); // Retardo progresivo
+        div.setAttribute('data-aos-duration', '800'); // Duración de la animación
+        div.setAttribute('data-aos-once', 'true'); // Animar solo una vez
+
         div.innerHTML = `
             <img src="${perfume.imagen_url}" alt="${perfume.nombre}">
             <h3>${perfume.nombre}</h3>
@@ -41,6 +47,9 @@ const mostrarPerfumes = (perfumes) => {
 
 const agregarAlCarrito = (e) => {
     const id = parseInt(e.target.getAttribute('data-id'), 10); // Asegurar que id es un número
+    const boton = e.target; // Referencia al botón clicado
+    const textoOriginal = boton.textContent;
+    const colorOriginal = getComputedStyle(boton).backgroundColor; // Obtener color actual del botón
 
     fetch(apiUrl)
         .then(response => {
@@ -60,10 +69,28 @@ const agregarAlCarrito = (e) => {
                 }
                 localStorage.setItem('carrito', JSON.stringify(carrito));
                 mostrarCarrito();
+
+                // Feedback visual:
+                boton.textContent = '¡Añadido!';
+                boton.style.backgroundColor = 'var(--color-acentuado)'; // Usar la variable CSS para el color de éxito
+                boton.disabled = true; // Deshabilitar temporalmente
+
+                setTimeout(() => {
+                    boton.textContent = textoOriginal;
+                    boton.style.backgroundColor = colorOriginal; // Restablecer color original
+                    boton.disabled = false; // Habilitar de nuevo
+                }, 1000); // Vuelve a la normalidad después de 1 segundo
+
+            } else {
+                console.warn("Perfume no encontrado para agregar con ID:", id);
             }
         })
         .catch(error => {
             console.error('Error al agregar al carrito:', error);
+            // Si hay un error, el botón vuelve a la normalidad inmediatamente
+            boton.textContent = textoOriginal;
+            boton.style.backgroundColor = colorOriginal;
+            boton.disabled = false;
         });
 };
 
@@ -76,9 +103,12 @@ const mostrarCarrito = () => {
     if (carrito.length === 0) {
         contenedorCarrito.innerHTML = '<p>El carrito está vacío.</p>';
     } else {
-        carrito.forEach(producto => {
+        carrito.forEach((producto, index) => { // Añadido 'index' para la animación escalonada
             const div = document.createElement('div');
             div.classList.add('producto-carrito');
+            // Añadir retardo para animación de aparición escalonada
+            div.style.setProperty('--delay-producto', `${index * 0.1}s`);
+
             div.innerHTML = `
                 <img src="${producto.imagen_url}" alt="${producto.nombre}" class="imagen-carrito">
                 <h3>${producto.nombre}</h3>

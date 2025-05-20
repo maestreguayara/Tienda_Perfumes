@@ -8,6 +8,11 @@
     --fuente-titulos: 'Playfair Display', serif;
 }
 
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--fuente-principal);
     background-color: var(--color-secundario);
@@ -16,6 +21,7 @@ body {
     margin: 0; /* Reset de margen */
     overflow-x: hidden; /* Evita el scroll horizontal inesperado */
 }
+
 
 /* Encabezado */
 header {
@@ -29,216 +35,404 @@ header {
 
 header h1 {
     font-family: var(--fuente-titulos);
-    font-size: 3.5rem; /* Más grande para impacto */
+    font-size: 3.5rem; /* Ajuste para un tamaño más elegante */
     font-weight: 600;
-    letter-spacing: 2px; /* Más espaciado */
-    margin-bottom: 10px; /* Espacio antes del nav */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sutil sombra */
-}
-
-header nav {
-    margin-top: 25px;
-}
-
-header nav a {
-    color: var(--color-secundario);
-    text-decoration: none;
-    margin: 0 25px; /* Más espacio horizontal */
-    font-size: 1.2rem;
-    font-weight: 500;
-    position: relative; /* Para la línea inferior */
-    transition: color 0.3s ease;
-}
-
-header nav a:before {  /* Línea inferior al hacer hover */
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-acentuado);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.3s ease-in-out;
-}
-
-header nav a:hover {
-    color: var(--color-acentuado);
-}
-
-header nav a:hover:before {
-    width: 100%;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px; /* Espacio debajo del título */
+    position: relative;
+    z-index: 2; /* Asegura que el texto esté por encima de la onda */
 }
 
 /* Efecto de onda para el header */
 header:before {
     content: '';
     position: absolute;
-    bottom: -20px; /* CORRECCIÓN: Mueve la onda hacia abajo */
+    bottom: -60px; /* Ajustado para que la onda no tape el título */
     left: 0;
     width: 100%;
-    height: 100px;  /* CORRECCIÓN: Reduce la altura de la onda */
-    background: var(--color-acentuado);
+    height: 150px; /* Altura de la onda */
+    background: var(--color-secundario);
     border-radius: 50% / 10%;
     transform: scaleX(1.1);
     transform-origin: bottom;
-    animation: onda 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    animation: onda 10s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite alternate;
+    z-index: 1; /* Detrás del contenido del header */
 }
 
 @keyframes onda {
     0% { transform: scaleX(1.1) translateY(0); }
-    50% { transform: scaleX(1.1) translateY(-15px); }
-    100% { transform: scaleX(1.1) translateY(0); }
+    100% { transform: scaleX(1.1) translateY(-20px); } /* Suave movimiento vertical */
 }
 
-/* Estilos para el main (AÑADIDO) */
+header nav {
+    margin-top: 20px;
+    position: relative;
+    z-index: 2; /* Asegura que la navegación esté por encima de la onda */
+}
+
+header nav a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease; /* Añadida transición para transform */
+}
+
+header nav a:hover {
+    color: var(--color-acentuado);
+    transform: translateY(-2px); /* Pequeño efecto hover */
+}
+
+/* Contenido principal */
 main {
     padding: 20px;
-    min-height: 60vh; /* Asegura que el footer no suba demasiado */
+    max-width: 1200px;
+    margin: 0 auto;
 }
-
 
 /* Sección de perfumes */
 #perfumes {
-    padding: 80px 20px; /* Más espacio vertical */
+    padding: 60px 20px;
     max-width: 1200px;
     margin: auto;
+    text-align: center;
 }
 
 #perfumes h2 {
-    text-align: center;
+    font-family: var(--fuente-titulos);
     font-size: 3rem;
     color: var(--color-primario);
-    font-family: var(--fuente-titulos);
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     position: relative;
-    padding-bottom: 20px;
+    display: inline-block;
 }
 
-#perfumes h2:before { /* Línea decorativa debajo del título */
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--color-acentuado);
+#perfumes h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--color-acentuado);
+    margin: 10px auto 0;
     border-radius: 2px;
 }
 
 .perfumes-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Tarjetas más anchas */
-    gap: 40px; /* Más espacio entre tarjetas */
-    animation: fade-in 1s ease-in-out forwards; /* Animación de entrada */
-}
-
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
 }
 
 /* Tarjeta de perfume */
 .perfume {
-    background: rgba(255, 255, 255, 0.85); /* Blanco translúcido */
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative; /* Para el "Nuevo" badge */
-    overflow: hidden; /* Oculta el badge fuera de la tarjeta */
 }
 
 .perfume:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .perfume img {
     width: 100%;
-    height: 280px; /* Imágenes más altas */
+    height: 230px;
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    transition: transform 0.4s ease-in-out; /* Zoom sutil */
-}
-
-.perfume:hover img {
-    transform: scale(1.05);
-}
-
-.perfume h3 {
-    font-size: 1.8rem;
-    font-family: var(--fuente-titulos);
-    color: var(--color-primario);
-    margin-bottom: 8px;
-    transition: color 0.3s ease;
-}
-
-.perfume:hover h3 {
-    color: var(--color-acentuado);
-}
-
-.perfume p {
-    font-size: 1rem;
-    color: #555; /* Gris más suave */
+    border-radius: 10px;
     margin-bottom: 15px;
 }
 
-.perfume span {
-    font-weight: 600;
+.perfume h3 {
+    font-size: 1.6rem;
+    font-family: 'Playfair Display', serif;
+    color: #051b2b;
+    margin-bottom: 5px;
+}
+
+.perfume p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.perfume strong {
+    color: var(--color-primario);
+    font-size: 1.2rem;
+}
+
+.agregar-carrito {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Animaciones en botones */
+}
+
+.agregar-carrito:hover {
+    background-color: var(--color-acentuado);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.agregar-carrito:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Carrito de compras */
+#carrito {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+#carrito h2 {
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    font-family: var(--fuente-titulos);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+#productos-carrito {
+    /* Estilos para el contenedor de los productos en el carrito */
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Animación para los productos individuales del carrito */
+.producto-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Un poco hacia abajo */
+    animation: fadeInProduct 0.5s ease-out forwards; /* Aplicar animación */
+    animation-delay: var(--delay-producto, 0s); /* Retardo variable desde JS */
+}
+
+.producto-carrito:last-child {
+    border-bottom: none;
+}
+
+.imagen-carrito {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.producto-carrito h3 {
+    flex-grow: 1; /* Permite que el título ocupe espacio */
+    text-align: left;
     font-size: 1.2rem;
     color: var(--color-primario);
-    display: block;
-    margin-bottom: 20px;
 }
 
-/* Botón */
-.perfume button {
-    background: linear-gradient(to right, var(--color-acentuado), #d4af37); /* Gradiente dorado */
-    border: none;
-    padding: 14px 30px;
-    font-size: 1.1rem;
+.producto-carrito p {
+    margin: 0 15px;
+    font-size: 1rem;
+    white-space: nowrap; /* Evita que "Cantidad" o "Precio" se rompan en línea */
+}
+
+/* Botones de cantidad y eliminar en el carrito */
+.modificar-cantidad,
+.eliminar-producto {
+    background-color: var(--color-primario);
     color: var(--color-secundario);
-    border-radius: 50px;
-    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Animaciones en botones */
 }
 
-.perfume button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.modificar-cantidad.btn-restar {
+    background-color: #e74c3c; /* Color rojo para restar */
+}
+.modificar-cantidad.btn-restar:hover {
+    background-color: #c0392b;
 }
 
-.perfume button:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.modificar-cantidad.btn-sumar {
+    background-color: #2ecc71; /* Color verde para sumar */
+}
+.modificar-cantidad.btn-sumar:hover {
+    background-color: #27ae60;
 }
 
-/* Badge "Nuevo" */
-.perfume .nuevo {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+.eliminar-producto {
+    background-color: #e74c3c; /* Rojo para eliminar */
+}
+
+.modificar-cantidad:hover,
+.eliminar-producto:hover {
+    transform: translateY(-2px); /* Pequeño levantamiento */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+.modificar-cantidad:active,
+.eliminar-producto:active {
+    transform: translateY(0); /* Vuelve a su posición original */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+}
+
+#total-carrito {
+    /* Estilos para el total y el botón de finalizar compra */
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#total-carrito p {
+    margin-bottom: 15px;
+    color: var(--color-primario);
+}
+
+#total-carrito span {
+    color: var(--color-acentuado);
+    font-size: 1.6rem;
+}
+
+#proceder-pago {
     background-color: var(--color-acentuado);
     color: var(--color-secundario);
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 1; /* Asegura que esté encima de la imagen */
-    animation: aparecer-badge 0.5s ease-out forwards;
-    transform: translateX(20px);
-    opacity: 0;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-@keyframes aparecer-badge {
-    to { transform: translateX(0); opacity: 1; }
+#proceder-pago:hover {
+    background-color: #d4af37; /* Un tono más oscuro del dorado */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#proceder-pago:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la página de contacto */
+#formulario-contacto {
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+#formulario-contacto h2 {
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    font-family: var(--fuente-titulos);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#formulario-contacto p {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+#contacto-form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    text-align: left;
+}
+
+#contacto-form input[type="text"],
+#contacto-form input[type="email"],
+#contacto-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contacto-form input[type="text"]:focus,
+#contacto-form input[type="email"]:focus,
+#contacto-form textarea:focus {
+    border-color: var(--color-acentuado);
+    box-shadow: 0 0 8px rgba(var(--color-acentuado-rgb), 0.3); /* Asumiendo que puedes tener una RGB de color acentuado */
+    outline: none;
+}
+
+#contacto-form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 120px;
+}
+
+#contacto-form button[type="submit"] {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#contacto-form button[type="submit"]:hover {
+    background-color: #082038; /* Un tono más oscuro del azul */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#contacto-form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInProduct {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Footer */
@@ -275,117 +469,99 @@ footer:before {
 
 @keyframes onda-footer {
     0% { transform: scaleX(1.1) translateY(0); }
-    50% { transform: scaleX(1.1) translateY(15px); }
-    100% { transform: scaleX(1.1) translateY(0); }
+    100% { transform: scaleX(1.1) translateY(-10px); }
 }
+
 
 /* Media Queries para Responsividad */
 @media (max-width: 768px) {
-    header { padding: 30px 10px; }
-    header h1 { font-size: 2.5rem; }
-    header nav a { margin: 0 15px; font-size: 1rem; }
-    #perfumes { padding: 60px 10px; }
-    #perfumes h2 { font-size: 2.2rem; }
-    .perfumes-container { grid-template-columns: 1fr; } /* Apila en pantallas pequeñas */
-    .perfume { padding: 20px; }
-    .perfume img { height: 200px; }
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header nav a {
+        margin: 0 10px;
+        font-size: 1rem;
+    }
+
+    #perfumes h2, #carrito h2, #formulario-contacto h2 {
+        font-size: 2rem;
+    }
+
+    .perfumes-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .perfume {
+        padding: 20px;
+    }
+
+    .perfume img {
+        height: 200px;
+    }
+
+    .producto-carrito {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 10px 0;
+    }
+
+    .producto-carrito img {
+        margin-bottom: 10px;
+    }
+
+    .producto-carrito h3, .producto-carrito p {
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .producto-carrito p span {
+        margin-left: 0;
+    }
+
+    #total-carrito {
+        text-align: center;
+    }
+
+    #proceder-pago {
+        width: 100%;
+    }
 }
 
-/* Estilos para la página del carrito */
-#carrito h2 {
-    font-size: 2.5rem;
-    color: var(--color-primario);
-    font-family: var(--fuente-titulos);
-    margin-bottom: 2rem;
-    text-align: center;
-}
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
 
-#productos-carrito {
-    /* Estilos para el contenedor de los productos en el carrito */
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
+    header nav a {
+        display: block;
+        margin: 10px 0;
+    }
 
-#productos-carrito .producto-carrito {
-    /* Estilos para cada producto individual en el carrito */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
-}
+    #perfumes h2, #carrito h2, #formulario-contacto h2 {
+        font-size: 1.8rem;
+    }
 
-#total-carrito {
-    /* Estilos para el total y el botón de finalizar compra */
-    text-align: right;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
+    .perfumes-container {
+        grid-template-columns: 1fr;
+    }
 
-#proceder-pago {
-    /* Estilos para el botón de finalizar compra */
-    background-color: var(--color-acentuado);
-    color: var(--color-secundario);
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.3rem;
-    transition: background-color 0.3s ease;
-}
+    .perfume {
+        padding: 15px;
+    }
 
-#proceder-pago:hover {
-    background-color: #d4af37; /* Un tono más oscuro del dorado */
-}
+    .perfume img {
+        height: 180px;
+    }
 
-/* Estilos para la página de contacto */
-#formulario-contacto h2 {
-    font-size: 2.5rem;
-    color: var(--color-primario);
-    font-family: var(--fuente-titulos);
-    margin-bottom: 1rem;
-    text-align: center;
-}
+    .agregar-carrito, #proceder-pago, #contacto-form button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
 
-#formulario-contacto p {
-    /* Estilos para la descripción del formulario */
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-#contacto-form label {
-    /* Estilos para las etiquetas del formulario */
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-#contacto-form input[type="text"],
-#contacto-form input[type="email"],
-#contacto-form textarea {
-    /* Estilos para los campos de entrada y el textarea */
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.3rem;
-}
-
-#contacto-form textarea {
-    resize: vertical; /* Permite redimensionar verticalmente */
-}
-
-#contacto-form button[type="submit"] {
-    /* Estilos para el botón de enviar */
-    background-color: var(--color-primario);
-    color: var(--color-secundario);
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.3rem;
-    transition: background-color 0.3s ease;
-}
-
-#contacto-form button[type="submit"]:hover {
-    background-color: #082038; /* Un tono más oscuro del azul */
+    .modificar-cantidad, .eliminar-producto {
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
 }
